@@ -1,0 +1,245 @@
+from tkinter import *
+from functools import partial  # to prevent unwanted windows
+
+
+class StartGame:
+    """
+    Initial game interface - asks user how many rounds they want to play
+    """
+
+    def __init__(self):
+        # gets number of rounds from the user
+        self.start_frame = Frame(padx=10, pady=10, bg="#FFCC99")
+        self.start_frame.grid()
+
+        # str for labels
+        intro_string = ("Welcome to Periodic Table Quiz. Please type in the number of rounds you would like to play "
+                        "below in order to start the game.")
+        # make sure it asks to choose a number more than zero
+        choose_string = "Please select a number >0"
+
+        # Button list  (text|font|fg)
+        start_label_list = [
+            ["Periodic Table Quiz", ("Helvetica", "26", "bold", "italic"), None],
+            [intro_string, ("Helvetica", "13", "italic"), None],
+            [choose_string, ("Arial", "12"), "#009900"],
+        ]
+        # create labels and add them to the reference list
+        start_label_ref = []
+        for count, item in enumerate(start_label_list):
+            make_label = Label(self.start_frame, text=item[0], font=item[1],
+                               wraplength=350, justify="left", pady=10, padx=10, bg="#FFCC99")
+            make_label.grid(row=count)
+            start_label_ref.append(make_label)
+        # extract choice label, so it can be changed
+        # to an error message if needed.
+        self.choose_label = start_label_ref[2]
+        # frame for entry box, so it can be in the same row with button
+        self.entry_area_frame = Frame(self.start_frame, bg="#FFCC99")
+        self.entry_area_frame.grid(row=3)
+        self.num_rounds_entry = Entry(self.entry_area_frame,
+                                      font=("Arial", "20", "bold"), width=10)
+        self.num_rounds_entry.grid(row=0, column=0, padx=0, pady=0)
+
+        self.play_button = Button(self.entry_area_frame,
+                                  font=("Arial", "16", "bold"),
+                                  text="Play", bg="#CC6600",
+                                  fg="#FFFFFF", width=8, command=self.check_rounds)
+        self.play_button.grid(row=0, column=1)
+
+        # frame to hold info and endless mode
+        self.info_frame = Frame(self.entry_area_frame, bg="#FFCC99")
+        self.info_frame.grid(row=6)
+
+        self.endless_frame = Frame(self.entry_area_frame, bg="#FFCC99")
+        self.endless_frame.grid(row=6, column=1)
+
+        # list for buttons :( (Frame| txt| bg| command| width| row| column)
+        control_button_list = [
+            [self.info_frame, "Information", "#CC6600", self.to_info, 11, 0, 0],
+            [self.endless_frame, "Endless Mode", "#CC6600", self.to_endless, 11, 0, 0]
+        ]
+
+        # create buttons and add to list
+        control_ref_list = []
+        for item in control_button_list:
+            make_control_button = Button(item[0], text=item[1], bg=item[2],
+                                         command=item[3], font=("Arial", "16", "bold"),
+                                         fg="#ffffff", width=item[4])
+            make_control_button.grid(row=item[5], column=item[6], padx=5, pady=5)
+            control_ref_list.append(make_control_button)
+
+        # retrieve next, stat and end button, so they can be configured
+        self.info_frame = control_ref_list[0]
+        self.endless_frame = control_ref_list[1]
+
+    def check_rounds(self):
+        # retrieve colours to be converted
+        rounds_wanted = self.num_rounds_entry.get()
+
+        # reset label and entry box when user return to screen
+        self.choose_label.config(fg="#009900", font=("Arial", "12", "bold"))
+        self.num_rounds_entry.config(bg="#FFCC99")
+
+        error = "oopsie, choose a WHOLE number more than ZERO"
+        has_errors = "no"
+
+        # check that amount to be converted is whole number above kelvin zero
+        try:
+            rounds_wanted = int(rounds_wanted)
+            if rounds_wanted > 0:
+                # invoke play class
+                Play(rounds_wanted)
+                # hide root window
+                root.withdraw()
+
+            else:
+                has_errors = "yes"
+        except ValueError:
+            has_errors = "yes"
+
+        # display error if necessary
+        if has_errors == "yes":
+            self.choose_label.config(text=error, fg="#990000", font=("Arial", "10", "bold"))
+            self.num_rounds_entry.config(bg="#f4cccc")
+            self.num_rounds_entry.delete(0, END)
+
+    def to_info(self):
+        """
+        Displays hints for playing game
+        :return:
+        """
+        DisplayInfo(self)
+
+    def to_endless(self):
+        """
+        Displays endless mode version of the game
+        :return:
+        """
+        Endless(self)
+
+class Play:
+    """
+    interface for colour quest
+    """
+
+    def __init__(self, how_many):
+        self.play_box = Toplevel()
+
+        self.game_frame = Frame(self.play_box)
+        self.game_frame.grid(padx=10, pady=10)
+
+        self.game_heading_label = Label(self.game_frame, text=f"Round 0 of {how_many}",
+                                        font=("Arial", "16", "bold"))
+        self.game_heading_label.grid(row=0)
+        self.end_game_button = Button(self.game_frame, text="End Game",
+                                      font=("Arial", "16", "bold"),
+                                      fg="#ffffff", bg="#990000", width=10, command=self.close_play)
+        self.end_game_button.grid(row=1)
+
+    def close_play(self):
+        # reshow root and end current game
+        root.deiconify()
+        self.play_box.destroy()
+
+
+class DisplayInfo:
+    """Display information in the start menu"""
+
+    def __init__(self, partner):
+        # setup dialogue box
+        background = "#ffe6cc"
+        self.info_box = Toplevel()
+        # if users press cross at top, close help and release help button
+        self.info_box.protocol('WM_DELETE_WINDOW',
+                               partial(self.close_info, partner))
+        self.info_frame = Frame(self.info_box, width=300,
+                                height=200)
+        self.info_frame.grid()
+        self.info_heading_label = Label(self.info_frame,
+                                        text="Info",
+                                        font=("Arial", "14", "bold"))
+        self.info_heading_label.grid(row=0)
+        info_text = " This Periodic Table Quiz was created in order to help struggling students" \
+                    " to study the elements in a fun way. Select the amount of rounds you would" \
+                    " like to play, however you also have an option of an infinite mode if you" \
+                    " do not want any restrictions. Firs you will have to match the element symbol" \
+                    " with its name. If you answer correctly, you are welcome to answer a bonus question" \
+                    " asking what atomic number the following element is."
+        self.info_text_label = Label(self.info_frame,
+                                     text=info_text, wraplength=350,
+                                     justify="left")
+        self.info_text_label.grid(row=1, padx=10)
+        self.dismiss_button = Button(self.info_frame,
+                                     font=("Arial", "12", "bold"),
+                                     text="Dismiss", bg="#CC6600",
+                                     fg="#FFFFFF",
+                                     command=partial(self.close_info, partner))
+        self.dismiss_button.grid(row=2, padx=10, pady=10)
+        # list and loop to set background colour on everything except the buttons.
+        recolour_list = [self.info_frame, self.info_heading_label,
+                         self.info_text_label]
+        for item in recolour_list:
+            item.config(bg=background)
+
+    def close_info(self, partner):
+        """
+        Closes info dialogue box (and enables info button)
+        """
+        self.info_box.destroy()
+
+
+class Endless:
+    """Display endless mode in the start menu"""
+
+    def __init__(self, partner):
+        # setup dialogue box
+        background = "#ffe6cc"
+        self.endless_box = Toplevel()
+        # if users press cross at top, close help and release help button
+        self.endless_box.protocol('WM_DELETE_WINDOW',
+                                  partial(self.close_endless, partner))
+        self.endless_frame = Frame(self.endless_box, width=300,
+                                   height=200)
+        self.endless_frame.grid()
+        self.endless_heading_label = Label(self.endless_frame,
+                                           text="Endless Mode",
+                                           font=("Arial", "14", "bold"))
+        self.endless_heading_label.grid(row=0)
+        endless_text = " This Periodic Table Quiz was created in order to help struggling students" \
+                       " to study the elements in a fun way. Select the amount of rounds you would" \
+                       " like to play, however you also have an option of an infinite mode if you" \
+                       " do not want any restrictions. Firs you will have to match the element symbol" \
+                       " with its name. If you answer correctly, you are welcome to answer a bonus question" \
+                       " asking what atomic number the following element is."
+        self.endless_text_label = Label(self.endless_frame,
+                                        text=endless_text, wraplength=350,
+                                        justify="left")
+        self.endless_text_label.grid(row=1, padx=10)
+        self.dismiss_button = Button(self.endless_frame,
+                                     font=("Arial", "12", "bold"),
+                                     text="Dismiss", bg="#CC6600",
+                                     fg="#FFFFFF",
+                                     command=partial(self.close_endless, partner))
+        self.dismiss_button.grid(row=2, padx=10, pady=10)
+        # list and loop to set background colour on everything except the buttons.
+        recolour_list = [self.endless_frame, self.endless_heading_label,
+                         self.endless_text_label]
+        for item in recolour_list:
+            item.config(bg=background)
+
+    def close_endless(self, partner):
+        """
+        Closes endless dialogue box (and enables endless button)
+        """
+        self.endless_box.destroy()
+
+
+# main_routine goes here
+
+
+if __name__ == "__main__":
+    root = Tk()
+    root.title("Periodic Table Quiz")
+    StartGame()
+    root.mainloop()
