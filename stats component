@@ -1,0 +1,173 @@
+from tkinter import *
+from functools import partial
+
+class StartGame:
+    """
+    Initial Game interface (ask users how many rounds they
+    would like to play)
+    """
+    def __init__(self):
+        """
+        Gets number of rounds from user
+        """
+        self.start_frame = Frame(pady=10, padx=10)
+        self.start_frame.grid()
+        # Create play button
+        self.play_button = Button(self.start_frame, font=("Arial", 16, "bold"),
+                                  fg="#FFFFFF", bg="#0057D8", text="Play", width=10,
+                                  command=self.check_rounds)
+        self.play_button.grid(row=0, column=1, padx=20, pady=20)
+
+    def check_rounds(self):
+        """
+        Checks user has entered 1 or more rounds
+        """
+        # Retrieve temperature to be converted
+        rounds_wanted = 5
+        self.to_play(rounds_wanted)
+
+    def to_play(self, num_rounds):
+        """
+        Invokes Game GUI and takes across number of rounds to be played.
+        """
+        Play(num_rounds)
+        # hide root window (ie: hide rounds choice window)
+        root.withdraw()
+
+class Play:
+    """
+    Interface for playing the Colour Quest Game
+    """
+
+    def __init__(self, how_many):
+        self.rounds_won = IntVar()
+        self.bonus_rounds_won = IntVar()
+        # lists for stats components
+        # random scores
+        self.all_scores_list = [1, 1, 1, 0, 0]
+        self.bonus_scores_list = [2,2,0,0,0]
+        self.rounds_won.set(3)
+        self.bonus_rounds_won.set(2)
+
+        self.play_box = Toplevel()
+
+        self.game_frame = Frame(self.play_box)
+        self.game_frame.grid(padx=10, pady=10)
+        self.heading_label = Label(self.game_frame, text="periodic table quiz", font="Arial",
+                                   padx=5, pady=5)
+        self.heading_label.grid(row=0)
+        self.stats_button = Button(self.game_frame, font=("Arial", 14, "bold"),
+                                   text="stats", width=15, fg="#FFFFFF",
+                                   bg="#FF8000", padx=10, pady=10, command=self.to_stats)
+        self.stats_button.grid(row=1)
+
+    def to_stats(self):
+        """
+        retrieves stats for playing game
+        """
+        # retrieve number of rounds
+        # won as a number
+        rounds_won = self.rounds_won.get()
+        stats_bundle = [rounds_won, self.all_scores_list]
+
+        bonus_rounds_won = self.bonus_rounds_won.get()
+        bonus_bundle = [bonus_rounds_won,self.bonus_scores_list]
+        Stats(self, stats_bundle, bonus_bundle)
+
+class Stats:
+    """
+    Displays stats for Colour Quest Game
+    """
+
+    def __init__(self, partner, all_stats_info, all_bonus_stats_info):
+        # extract information from master list
+        rounds_won = all_stats_info[0]
+        user_scores = all_stats_info[1]
+        bonus_rounds_won = all_bonus_stats_info[0]
+        user_bonus_scores = all_bonus_stats_info[1]
+        # sort user scores to find high scores
+        user_scores.sort()
+        user_bonus_scores.sort()
+
+        # setup dialogue box
+
+        self.stats_box = Toplevel()
+
+        # disable stat button
+
+        partner.stats_button.config(state=DISABLED)
+        # if users press cross at top, close help and release help button
+        self.stats_box.protocol('WM_DELETE_WINDOW',
+                                partial(self.close_stats, partner))
+
+        self.stats_frame = Frame(self.stats_box, width=300, )
+        self.stats_frame.grid()
+
+
+        # math to populate stats dialogue
+        rounds_played = len(user_scores)
+        bonus_rounds_played = len(user_bonus_scores)
+
+        success_rate = rounds_won / rounds_played * 100
+        total_score = sum(user_scores)
+
+        success_bonus_rate = bonus_rounds_won/ bonus_rounds_played * 100
+        total_bonus_score = sum(user_bonus_scores)
+
+
+        # str for stats labels
+        success_string = f"Success Rate: {rounds_won} / {rounds_played} ({success_rate:.0f}%)"
+
+        success_bonus_string = f"Success Rate {bonus_rounds_won}/{bonus_rounds_played} ({success_bonus_rate:.0f}%)"
+        all_total_score_string = f"Total Score: {total_bonus_score + total_score}"
+        if total_score != 0:
+                    comment_string = ""
+                    comment_colour = "#f0f0f0"
+        else:
+                    comment_string = "ur a failure"
+                    comment_colour = "#f8cecc"
+
+        heading_font = "Arial", "16", "bold"
+        normal_font = "Arial", "14"
+        comment_font = "Arial", "13"
+        # Label list txt| font| str
+        all_stats_strings = [
+            ["Statistics", heading_font, ''],
+            [success_string, normal_font, 'W'],
+            [comment_string, comment_font, 'W'],
+            ["\nBonus Round Stats", heading_font, ''],
+            [success_bonus_string, normal_font, 'W'],
+            [all_total_score_string, heading_font,'']
+
+        ]
+        stats_label_ref_list = []
+        for count, item in enumerate(all_stats_strings):
+            self.stats_label = Label(self.stats_frame, text=item[0], font=item[1],
+                                     anchor='w', justify="left",
+                                     padx=30, pady=5)
+            self.stats_label.grid(row=count, sticky=item[2], padx=10)
+            stats_label_ref_list.append(self.stats_label)
+        # configure comment label background
+        stats_comment_label = stats_label_ref_list[3]
+        stats_comment_label.config(bg=comment_colour)
+
+        self.dismiss_button = Button(self.stats_frame, font=("Arial", 14, "bold"),
+                                   text="Dismiss", fg="#FFFFFF",
+                                   bg="#333333", width=20, command=partial(self.close_stats, partner))
+        self.dismiss_button.grid(row=8, padx=10, pady=10)
+        # closes help dialogue
+
+    def close_stats(self, partner):
+        """
+        Closes stats dialogue box (and enables stats button)
+        """
+        # put stats button back to normal
+        partner.stats_button.config(state=NORMAL)
+        self.stats_box.destroy()
+
+# main routine
+if __name__ == "__main__":
+    root = Tk()
+    root.title("Periodic Table Quiz")
+    StartGame()
+    root.mainloop()
