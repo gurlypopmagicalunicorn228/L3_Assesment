@@ -1,8 +1,8 @@
-
 from tkinter import *
 from functools import partial  # to prevent unwanted windows
 import csv
 import random
+
 
 def get_symbols():
     """
@@ -15,6 +15,7 @@ def get_symbols():
     # remove first row
     all_symbols.pop(0)
     return all_symbols
+
 
 def get_round_symbol():
     """
@@ -32,6 +33,7 @@ def get_round_symbol():
             symbol_name.add(symbol)
             selected_symbols.append(potential_symbol)
     return selected_symbols
+
 
 class StartGame:
     """
@@ -149,6 +151,7 @@ class StartGame:
         """
         Endless(self)
 
+
 class DisplayInfo:
     """Display information in the start menu"""
 
@@ -188,7 +191,6 @@ class DisplayInfo:
         for item in recolour_list:
             item.config(bg=background)
 
-
     def close_info(self, partner):
         """
         Closes info dialogue box (and enables info button)
@@ -203,18 +205,13 @@ class Play:
 
     def __init__(self, how_many):
 
+        self.bonus_label = None
         self.current_bonus = None
         self.current_hint = None
         self.play_box = Toplevel()
 
         self.points_score = IntVar()
         self.points_score.set(0)
-
-
-
-
-
-
 
         # rounds played - starts with 0
         self.rounds_played = IntVar()
@@ -228,13 +225,11 @@ class Play:
         self.rounds_won = IntVar()
         self.bonus_rounds_won = IntVar()
 
-
         # symbol and score list
         self.round_symbol_list = []
         self.correct_index = None
         self.all_scores_list = []
         self.bonus_scores_list = []
-
 
         self.game_frame = Frame(self.play_box, bg="#FFCC99")
         self.game_frame.grid(padx=10, pady=10)
@@ -289,7 +284,7 @@ class Play:
         control_button_list = [
 
             [self.game_frame, "Next Round", "#EA6B66", self.new_round, 21, 5, None],
-            [self.game_frame, "Bonus Round", "#0057d8", self.ask_bonus, 21, 6, None],
+            [self.game_frame, "Bonus Round", "#0057d8", self.to_bonus, 21, 6, None],
             [self.hints_stats_frame, "Hints", "#6D8764", self.to_help, 10, 7, 0],
             [self.hints_stats_frame, "Stats", "#647687", self.to_stats, 10, 7, 1],
             [self.game_frame, "End", "#990000", self.close_play, 21, 8, None]
@@ -316,16 +311,11 @@ class Play:
                                         font=("Arial", 16, "bold"), bg="#FFF5EE")
         self.game_heading_label.grid(row=0)
 
-
         # once interface created, invoke new
         # round function for first round
         self.new_round()
 
-    def ask_bonus(self):
-        correct_element = self.round_symbol_list[self.correct_index]
-        element_name = correct_element[1]
-        atomic_number = correct_element[0]
-        Bonus(self, element_name, atomic_number)
+
 
     def new_round(self):
         """
@@ -348,16 +338,10 @@ class Play:
         self.correct_index = random.randint(0, 8)
         correct_symbol = self.round_symbol_list[self.correct_index]
         self.current_hint = correct_symbol[5]
-        self.current_bonus = correct_symbol[1]
+        self.current_bonus = correct_symbol[0]
 
-        #display hint related to the element
+        # display hint related to the element
         self.element_label.config(text=correct_symbol[1])
-
-
-
-
-
-
 
         for item, button in enumerate(self.symbol_button_ref):
             button.config(text=self.round_symbol_list[item][2], state=NORMAL)
@@ -379,7 +363,6 @@ class Play:
         # Initialise variables (retrieve rounds won, played)
         rounds_won = self.rounds_won.get()
         rounds_played = self.rounds_played.get()
-
 
         # alternate way to get button name.
         correct_symbol = self.round_symbol_list[self.correct_index][2]
@@ -414,7 +397,7 @@ class Play:
             self.end_game_button.config(text="Play Again", bg="#006600")
 
             for item in self.symbol_button_ref:
-                item.config(state = DISABLED)
+                item.config(state=DISABLED)
 
     def to_help(self):
         """Displays help for playing quiz
@@ -422,6 +405,13 @@ class Play:
         """
         Help(self, self.current_hint)
 
+    def to_bonus(self):
+        """Displays bonus round after
+         answering the normal question correctly"""
+        element_name = self.round_symbol_list[self.correct_index][1]
+        atomic_number = self.round_symbol_list[self.correct_index][0]
+
+        Bonus(self, element_name, atomic_number)
 
     def to_stats(self):
 
@@ -430,13 +420,14 @@ class Play:
         stats_bundle = [rounds_won, self.all_scores_list]
 
         bonus_rounds_won = self.bonus_rounds_won.get()
-        bonus_bundle = [bonus_rounds_won,self.bonus_scores_list]
+        bonus_bundle = [bonus_rounds_won, self.bonus_scores_list]
         Stats(self, stats_bundle, bonus_bundle)
 
     def close_play(self):
         # reshow root and end current game
         root.deiconify()
         self.play_box.destroy()
+
 
 class Bonus:
 
@@ -446,7 +437,7 @@ class Bonus:
         self.bonus_box.config(bg="#ffe6cc")
 
         self.bonus_play = bonus_play
-        self.atomic_num = atomic_number
+        self.atomic_number = atomic_number
 
         # Disable bonus button to prevent crash of the quiz
         self.bonus_play.bonus_button.config(state=DISABLED)
@@ -466,7 +457,6 @@ class Bonus:
             ["You chose, results", body_font, "#d5e8d4", 4]
         ]
 
-
         self.bonus_labels_ref = []
         for item in bonus_labels_list:
             self.make_label = Label(self.bonus_frame, text=item[0], font=item[1],
@@ -478,29 +468,36 @@ class Bonus:
         # set up atomic num  buttons
         self.atomic_frame = Frame(self.bonus_frame, bg="#FFCC99")
         self.atomic_frame.grid(row=3)
-        
+
         self.symbol_button_ref = []
         self.button_symbol_list = []
 
-
         # retrieve labels for later use
-        self.heading_label= self.bonus_labels_ref[0]
+        self.heading_label = self.bonus_labels_ref[0]
         self.target_label_bonus = self.bonus_labels_ref[1]
         self.element_label = self.bonus_labels_ref[2]
         self.results_label = self.bonus_labels_ref[3]
-
-
 
         # create 9 buttons 3 by 3
         for item in range(0, 6):
             self.atomic_button = Button(self.atomic_frame, font=("Arial", 12),
                                         text="atom num", width=9, bg="#F8CECC",
+                                        command=partial(self.bonus_answer)
 
                                         )
             self.atomic_button.grid(row=item // 3,
                                     column=item % 3,
                                     padx=5, pady=5)
             self.symbol_button_ref.append(self.atomic_button)
+
+        correct_number = int(self.atomic_number)
+        possible_answers = [correct_number - 2, correct_number -1, correct_number,
+                            correct_number+1, correct_number+2, correct_number+3]
+        random.shuffle(possible_answers)
+        for item in range(0,6):
+            self.symbol_button_ref[item].config(text=(possible_answers[item]),
+                                                command=partial(self.check_bonus_answer, possible_answers[item]))
+
 
             # list for buttons :( (Frame| txt| bg| command| width| row| column)
             control_button_list = [
@@ -521,11 +518,25 @@ class Bonus:
 
             self.bonus_return_button = control_ref_list[0]
 
+    def bonus_answer (self,chosen_num):
+        correct_num = int(self.atomic_number)
+        if chosen_num == correct_num:
+            self.results_label.config(text="Congratulations! +2 points yahoo")
+            self.bonus_play.bonus_score_list.append(2)
+            self.bonus_play.bonus_rounds_won.set(self.bonus_play.bonus_rounds_won.get())
+        else:
+            self.results_label.config(text=f"wrong... correct answer was {self.atomic_number}")
+            self.bonus_play.bonus_score_list.append(0)
+
+        for button in self.symbol_button_ref:
+            button.config(state=DISABLED)
+
 
     def close_bonus(self):
         self.bonus_box.destroy()
         # Re-enable bonus button if needed later
         self.bonus_play.bonus_button.config(state=NORMAL)
+
 
 class Help:
     """
@@ -592,7 +603,6 @@ class Stats:
         user_scores.sort()
         user_bonus_scores.sort()
 
-
         # setup dialogue box
 
         self.stats_box = Toplevel()
@@ -604,7 +614,7 @@ class Stats:
         self.stats_box.protocol('WM_DELETE_WINDOW',
                                 partial(self.close_stats, partner))
 
-        self.stats_frame = Frame(self.stats_box, width=300,bg= "#ffe6cc" )
+        self.stats_frame = Frame(self.stats_box, width=300, bg="#ffe6cc")
         self.stats_frame.grid()
 
         # math to populate stats dialogue
@@ -627,13 +637,12 @@ class Stats:
         total_score = sum(user_scores)
         total_bonus_score = sum(user_bonus_scores)
 
-
         if total_score != 0:
-                    comment_string = "Good Job, keep it up!"
-                    comment_colour = "#00ff00"
+            comment_string = "Good Job, keep it up!"
+            comment_colour = "#00ff00"
         else:
-                    comment_string = "ur a failure"
-                    comment_colour = "#f8cecc"
+            comment_string = "ur a failure"
+            comment_colour = "#f8cecc"
 
         heading_font = "Arial", "16", "bold"
         normal_font = "Arial", "14"
@@ -650,7 +659,7 @@ class Stats:
         for count, item in enumerate(all_stats_strings):
             self.stats_label = Label(self.stats_frame, text=item[0], font=item[1],
                                      anchor='w', justify="left",
-                                     padx=30, pady=5, bg= "#ffe6cc")
+                                     padx=30, pady=5, bg="#ffe6cc")
             self.stats_label.grid(row=count, sticky=item[2], padx=10)
             stats_label_ref_list.append(self.stats_label)
         # configure comment label background
@@ -715,8 +724,6 @@ class Endless:
 
             self.play_labels_ref.append(self.make_label)
 
-
-
         # set up symbol buttons
         self.symbol_frame = Frame(self.game_frame, bg="#FFCC99")
         self.symbol_frame.grid(row=3)
@@ -729,7 +736,6 @@ class Endless:
         self.target_label = self.play_labels_ref[1]
         self.element_label = self.play_labels_ref[2]
         self.results_label = self.play_labels_ref[3]
-
 
         # create 9 buttons 3 by 3
 
@@ -746,8 +752,6 @@ class Endless:
             # frame to hold hints and stats
         self.hints_stats_frame = Frame(self.game_frame, bg="#FFCC99")
         self.hints_stats_frame.grid(row=7)
-
-
 
         # list for buttons :( (Frame| txt| bg| command| width| row| column)
         control_button_list = [
@@ -772,10 +776,9 @@ class Endless:
         self.stats_button = control_ref_list[3]
         self.end_game_button = control_ref_list[4]
 
-        self.game_heading_label = Label(self.game_frame,  text="Endless Mode",
+        self.game_heading_label = Label(self.game_frame, text="Endless Mode",
                                         font=("Arial", 16, "bold"), bg="#FFF5EE")
         self.game_heading_label.grid(row=0)
-
 
         # once interface created, invoke new
         # round function for first round
@@ -839,9 +842,6 @@ class Endless:
         # reshow root and end current game
         root.deiconify()
         self.play_box.destroy()
-
-
-
 
 
 # main_routine goes here
