@@ -577,7 +577,6 @@ class Bonus:
 
     def close_bonus(self):
         self.bonus_box.destroy()
-        # Re-enable bonus button if needed later
         self.bonus_play.bonus_button.config(state=DISABLED)
 
 
@@ -632,6 +631,7 @@ class Stats:
     def __init__(self, partner, all_stats_info, all_bonus_stats_info):
 
         # disable buttons prevent program crashing
+        global success_string
         partner.hints_button.config(state=DISABLED)
         partner.end_game_button.config(state=DISABLED)
         partner.stats_button.config(state=DISABLED)
@@ -668,7 +668,7 @@ class Stats:
         if rounds_played > 0:
             success_rate = rounds_won / rounds_played * 100
             success_string = f"Success Rate: {rounds_won} / {rounds_played} ({success_rate:.0f}%)"
-          
+
 
         # Handle bonus rounds
         if bonus_rounds_played > 0:
@@ -680,7 +680,6 @@ class Stats:
         # Scores
         total_score = sum(user_scores)
         total_bonus_score = sum(user_bonus_scores)
-        bonus_score_str = f"Bonus Score: {total_bonus_score} "
 
         if total_score != 0:
             comment_string = "Good Job, keep it up!"
@@ -695,10 +694,10 @@ class Stats:
 
         all_stats_strings = [
             ["Statistics", heading_font, ''],
+            [success_string, normal_font, 'W'],
             [comment_string, comment_font, 'W'],
             ["\nBonus Round Stats", heading_font, ''],
-            [success_bonus_string, normal_font, 'W'],
-            [bonus_score_str, normal_font, 'W']
+            [success_bonus_string, normal_font, 'W']
         ]
 
         stats_label_ref_list = []
