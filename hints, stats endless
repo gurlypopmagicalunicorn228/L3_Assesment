@@ -487,7 +487,7 @@ class Bonus:
         bonus_labels_list = [
             ["Bonus Round", ("Arial", 16, "bold"), "#FFF5EE", 0],
             [f"What Is the atomic number of {element_name}?", ("Arial", 15), "#FFF5EE", 1],
-            ["===", body_font, "#d5e8d4", 4]
+            ["", body_font, "#d5e8d4", 4]
         ]
 
         self.bonus_labels_ref = []
@@ -567,6 +567,7 @@ class Bonus:
             self.bonus_play.bonus_rounds_won.set(self.bonus_play.bonus_rounds_won.get()+1)
         else:
             self.results_label.config(text=f"wrong... correct answer was {self.atomic_number}")
+            bonus_resul_bg = "#FA8072"
             self.bonus_play.bonus_score_list.append(0)
 
         #disable atomic number buttons after answering
