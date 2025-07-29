@@ -273,7 +273,7 @@ class Play:
             ["You chose, results", body_font, "#d5e8d4", 4]
 
         ]
-        #create labels  and add to the list 
+        #create labels  and add to the list
         self.play_labels_ref = []
         for item in play_labels_list:
             self.make_label = Label(self.game_frame, text=item[0], font=item[1],
@@ -335,7 +335,7 @@ class Play:
         self.hints_button = control_ref_list[2]
         self.stats_button = control_ref_list[3]
         self.end_game_button = control_ref_list[4]
-        #disable stats in first round 
+        #disable stats in first round
         self.stats_button.config(state=DISABLED)
 
         self.game_heading_label = Label(self.game_frame,
@@ -374,8 +374,8 @@ class Play:
 
         for item, button in enumerate(self.symbol_button_ref):
             button.config(text=self.round_symbol_list[item][2], state=NORMAL)
-            
-        #disable next round and bonus round buttons when game finishes 
+
+        #disable next round and bonus round buttons when game finishes
         self.results_label.config(text="", bg="#FFF8C1")
         self.next_button.config(state=DISABLED)
         self.bonus_button.config(state=DISABLED)
@@ -396,8 +396,8 @@ class Play:
 
         # alternate way to get button name.
         correct_symbol = self.round_symbol_list[self.correct_index][2]
-        
-        #add points to stats if user scores points 
+
+        #add points to stats if user scores points
         if user_choice == self.correct_index:
             self.bonus_button.config(state=NORMAL)
             self.points_score.set(self.points_score.get() + 1)
@@ -413,14 +413,14 @@ class Play:
             self.all_scores_list.append(0)
 
         self.results_label.config(text=result_text, bg=result_bg)
-    
+
         for button in self.symbol_button_ref:
             button.config(state=DISABLED)
-        
+
         #enable next and stats button after 1 round is played
         self.next_button.config(state=NORMAL)
         self.stats_button.config(state=NORMAL)
-        
+
         #adjust the gui if the game finishes
         if self.rounds_played.get() == self.rounds_wanted.get():
 
@@ -479,7 +479,7 @@ class Bonus:
 
         self.bonus_frame = Frame(self.bonus_box, bg="#FFCC99")
         self.bonus_frame.grid(padx=10, pady=10)
-        
+
         # body font for most labels
         body_font = ("Arial", "12")
 
@@ -489,8 +489,8 @@ class Bonus:
             [f"What Is the atomic number of {element_name}?", ("Arial", 15), "#FFF5EE", 1],
             ["", body_font, "#d5e8d4", 4]
         ]
-        
-        #create labels for bonus and add to the list 
+
+        #create labels for bonus and add to the list
         self.bonus_labels_ref = []
         for item in bonus_labels_list:
             self.make_label = Label(self.bonus_frame, text=item[0], font=item[1],
@@ -522,7 +522,7 @@ class Bonus:
                                     column=item % 3,
                                     padx=5, pady=5)
             self.symbol_button_ref.append(self.atomic_button)
-    
+
         #randomise atomic numbers
         correct_number = int(self.atomic_number)
         wrong_number = set()
@@ -534,8 +534,8 @@ class Bonus:
         possible_answers = list(wrong_number)
         possible_answers.append(correct_number)
         random.shuffle(possible_answers)
-        
-        #create buttons for bonus round 
+
+        #create buttons for bonus round
         for item in range(0, 6):
             self.symbol_button_ref[item].config(text=(possible_answers[item]),
                                                 command=partial(self.bonus_answer, possible_answers[item]))
@@ -555,7 +555,7 @@ class Bonus:
                                              fg="#ffffff", width=item[4])
                 make_control_button.grid(row=item[5], column=item[6], padx=5, pady=5)
                 control_ref_list.append(make_control_button)
-                
+
             # retrieve end button, so it can be configured
             self.bonus_return_button = control_ref_list[0]
 
@@ -582,7 +582,7 @@ class Bonus:
     def close_bonus(self):
         """
         reshow root and end current bonus
-        :return: 
+        :return:
         """
         self.bonus_box.destroy()
         self.bonus_play.bonus_button.config(state=DISABLED)
@@ -594,32 +594,32 @@ class Help:
     """
 
     def __init__(self, partner, hint_text):
-        
+
         # setup dialogue box
         background = "#ffe6cc"
         self.hint_box = Toplevel()
-        
+
         # disable hint button
         partner.hints_button.config(state=DISABLED)
-        
+
         # if users press cross at top, close help and release help button
         self.hint_box.protocol('WM_DELETE_WINDOW',
                                partial(self.close_hint, partner))
         self.hint_frame = Frame(self.hint_box, width=300,
                                 height=200)
-        #create heading label 
+        #create heading label
         self.hint_frame.grid()
         self.hint_heading_label = Label(self.hint_frame,
                                         text="Hint",
                                         font=("Arial", 14, "bold"))
         self.hint_heading_label.grid(row=0)
-        
-        #create text label 
+
+        #create text label
         self.hint_text_label = Label(self.hint_frame,
                                      text=hint_text, wraplength=350,
                                      justify="left")
         self.hint_text_label.grid(row=1, padx=10)
-        
+
         #create dismiss button
         self.dismiss_button = Button(self.hint_frame,
                                      font=("Arial", 12, "bold"),
@@ -627,7 +627,7 @@ class Help:
                                      fg="#FFFFFF",
                                      command=partial(self.close_hint, partner))
         self.dismiss_button.grid(row=2, padx=10, pady=10)
-        
+
         # list and loop to set background colour on everything except the buttons.
         recolour_list = [self.hint_frame, self.hint_heading_label,
                          self.hint_text_label]
@@ -653,7 +653,7 @@ class Stats:
         partner.stats_button.config(state=DISABLED)
         partner.bonus_button.config(state=DISABLED)
         partner.next_button.config(state=DISABLED)
-        
+
         # extract information from master list
         rounds_won = all_stats_info[0]
         user_scores = all_stats_info[1]
@@ -667,7 +667,7 @@ class Stats:
 
         # setup dialogue box
         self.stats_box = Toplevel()
-        
+
         # disable stat button
         partner.stats_button.config(state=DISABLED)
 
@@ -681,7 +681,7 @@ class Stats:
         # math to populate stats dialogue
         rounds_played = len(user_scores)
         bonus_rounds_played = len(user_bonus_scores)
-        
+
         # Handle regular rounds
         if rounds_played > 0:
             success_rate = rounds_won / rounds_played * 100
@@ -712,7 +712,7 @@ class Stats:
         heading_font = "Arial", "16", "bold"
         normal_font = "Arial", "14"
         comment_font = "Arial", "13"
-    
+
         #create area for all statistics strings used in chronological order
         all_stats_strings = [
             ["Statistics", heading_font, ''],
@@ -722,7 +722,7 @@ class Stats:
             [success_bonus_string, normal_font, ''],
             [score_str, heading_font, 'W']
         ]
-        
+
         #create labels for stats
         stats_label_ref_list = []
         for count, item in enumerate(all_stats_strings):
@@ -731,11 +731,11 @@ class Stats:
                                      padx=30, pady=5, bg="#ffe6cc")
             self.stats_label.grid(row=count, sticky=item[2], padx=10)
             stats_label_ref_list.append(self.stats_label)
-            
+
         # configure comment label background
         stats_comment_label = stats_label_ref_list[2]
         stats_comment_label.config(bg=comment_colour)
-        
+
         self.dismiss_button = Button(self.stats_frame, font=("Arial", 14, "bold"),
                                      text="Dismiss", fg="#FFFFFF",
                                      bg="#333333", width=20, command=partial(self.close_stats, partner))
@@ -751,7 +751,6 @@ class Stats:
         partner.stats_button.config(state=NORMAL)
         partner.end_game_button.config(state=NORMAL)
         partner.hints_button.config(state=NORMAL)
-        partner.bonus_button.config(state=NORMAL)
         partner.next_button.config(state=NORMAL)
         self.stats_box.destroy()
 
@@ -776,7 +775,7 @@ class Endless:
 
         self.game_frame = Frame(self.play_box, bg="#FFCC99")
         self.game_frame.grid(padx=10, pady=10)
-        
+
         # body font for most labels
         body_font = ("Arial", "12")
 
@@ -787,7 +786,7 @@ class Endless:
             ["Element Name", body_font, "#FFF5ee", 2],
             ["You chose, results", body_font, "#d5e8d4", 4]
         ]
-        
+
         #create labels ref
         self.play_labels_ref = []
         for item in play_labels_list:
@@ -822,7 +821,7 @@ class Endless:
                                     padx=5, pady=5)
             self.symbol_button_ref.append(self.symbol_button)
 
-        # frame to hold hints 
+        # frame to hold hints
         self.hints_frame = Frame(self.game_frame, bg="#FFCC99")
         self.hints_frame.grid(row=7)
 
@@ -842,7 +841,7 @@ class Endless:
                                          fg="#ffffff", width=item[4])
             make_control_button.grid(row=item[5], column=item[6], padx=5, pady=5)
             control_ref_list.append(make_control_button)
-            
+
         # retrieve next, hint  and end button, so they can be configured
         self.next_button = control_ref_list[0]
         self.hints_button = control_ref_list[1]
@@ -894,7 +893,7 @@ class Endless:
         correct_symbol = self.round_symbol_list[self.correct_index][2]
         if user_choice == self.correct_index:
             self.points_score.set(self.points_score.get() + 1)
-            result_text = f" Correct!( +1 point)"
+            result_text = f" Correct!"
             result_bg = "#82B366"
         else:
             result_text = f" Wrong! \nCorrect answer: {correct_symbol}"
