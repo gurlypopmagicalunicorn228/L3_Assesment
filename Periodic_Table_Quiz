@@ -651,6 +651,8 @@ class Stats:
         partner.hints_button.config(state=DISABLED)
         partner.end_game_button.config(state=DISABLED)
         partner.stats_button.config(state=DISABLED)
+        partner.bonus_button.config(state=DISABLED)
+        partner.next_button.config(state=DISABLED)
         
         # extract information from master list
         rounds_won = all_stats_info[0]
@@ -749,6 +751,8 @@ class Stats:
         partner.stats_button.config(state=NORMAL)
         partner.end_game_button.config(state=NORMAL)
         partner.hints_button.config(state=NORMAL)
+        partner.bonus_button.config(state=NORMAL)
+        partner.next_button.config(state=NORMAL)
         self.stats_box.destroy()
 
 
