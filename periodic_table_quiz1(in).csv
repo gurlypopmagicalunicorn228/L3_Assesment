@@ -1,0 +1,88 @@
+Atomic Number,name,symbol,period,phase,Hint
+1,Hydrogen,H,1,gas,Colorless gas.  Lightest and most abundant element
+2,Helium,He,1,gas,"Colorless gas, exhibiting a red-orange glow when placed in a high-voltage electric field.  Noble gas So light it escapes Earth's gravity."
+3,Lithium,Li,2,solid,Silvery-white.  Alkali metal used in re-chargeable batteries
+4,Beryllium,Be,2,solid,White-gray metallic.  Alkaline earth metal. Used in X-ray and aerospace equipment
+5,Boron,B,2,solid,Black-brown.  Metalloid. Found in borax
+6,Carbon,C,2,solid,"Graphite: black, diamond: clear. A key element of life on Earth.
+7,Nitrogen,N,2,gas,"Colorless gas, liquid or solid. The most abundant gas in Earth's atmosphere
+8,Oxygen,O,2,gas,"Gas: colorless, liquid: pale blue. Essential in respiration in most organisms on earth, highly flammable"
+9,Fluorine,F,2,gas,"most reactive and electronegative element"
+11,Sodium,Na,3,solid,Silvery white metallic.  Alkali metal. Highly reactive element, especially with water, 6th most abundant on Earth
+12,Magnesium,Mg,3,solid,Shiny grey solid.  Alkaline earth metal. Crucial for maintaining healthy immune system
+13,Aluminum,Al,3,solid,Silvery gray metallic.  Post-transition metal. most abundant metal on earth's crust - resistant to rust
+14,Silicon,Si,3,solid,"Crystalline, reflective with bluish-tinged faces.  Metalloid. backbone of tech industry
+15,Phosphorus,P,3,solid, Polyatomic nonmetal." spontaneously catches fire in the air
+16,Sulfur,S,3,solid,Lemon yellow sintered microcrystals.  Polyatomic nonmetal. smells like rotten eggs
+17,Chlorine,Cl,3,gas,Pale yellow-green gas.  used as disinfectant - first ever poison gas used in WW1
+18,Argon,Ar,3,gas,Colorless gas exhibiting a lilac/violet glow when placed in a high voltage electric field.  Noble gas.
+19,Potassium,K,4,solid,Silvery gray.  Alkali metal. reacts violently with water producing flames
+21,Scandium,Sc,4,solid,Silvery white.  Transition metal. Rare but very strong lightweight metal
+22,Titanium,Ti,4,solid,Silvery grey-white metallic.  Transition metal. used in surgical implants and spacecraft
+23,Vanadium,V,4,solid,Blue-silver-grey metal.  Transition metal. strong and resistant to corrosion
+24,Chromium,Cr,4,solid,Silvery metallic.  Transition metal. gives stainless steel a shine and resistance to rust
+25,Manganese,Mn,4,solid,Silvery metallic.  Transition metal. essential in steelmaking, used by the body for enzyme catalyst
+26,Iron,Fe,4,solid,Lustrous metallic with a grayish tinge.  Transition metal. Core of Earth mostly consists of it, key metal in haemoglobin
+27,Cobalt,Co,4,solid,Hard lustrous bluish gray metal.  Transition metal. produces blue pigment in glass and ceramics
+28,Nickel,Ni,4,solid,"Lustrous, metallic, and silver with a gold tinge.  Transition metal." common in coins - magnetic
+29,Copper,Cu,4,solid,Red-orange metallic luster.  Transition metal. first metal used by humans, great conductor of electricity
+31,Gallium,Ga,4,solid,Silvery blue.  Post-transition metal. melts in a human hand
+32,Germanium,Ge,4,solid,Grayish-white.  Metalloid. used in infrared optics
+33,Arsenic,As,4,solid,Metallic grey.  Metalloid. a very well known poison
+34,Selenium,Se,4,solid,"Black, red, and gray (not pictured) allotropes.  Polyatomic nonmetal.  found in photocopiers and solar cells
+35,Bromine,Br,4,liquid,Reddish-brown.  Diatomic nonmetal. used in  flame retardants
+36,Krypton,Kr,4,gas,"Colorless gas, exhibiting a whitish glow in a high electric field.  Noble gas. used in high intensity lights and photography flashes
+37,Rubidium,Rb,5,solid,Grey white.  Alkali metal.  Highly reactive with water - explodes when reacts
+38,Strontium,Sr,5,solid,Silvery white metallic; with a pale yellow tint.  Alkaline earth metal. used in red fireworks and fluorescent paints
+39,Yttrium,Y,5,solid,Silvery white.  Transition metal. used in LED lights lasers and cancer treatments
+41,Niobium,Nb,5,solid,"Gray metallic, bluish when oxidized.  Transition metal."  used in MRI machines
+42,Molybdenum,Mo,5,solid,Gray metallic.  Transition metal. withstands extremely high temperatures, used in aerospace
+43,Technetium,Tc,5,solid,Shiny gray metal.  Transition metal. First artificial element that doesnt occur naturally on Earth, radioactive
+45,Rhodium,Rh,5,solid,Silvery white metallic.  Transition metal. used in car catalytic converters to reduce emissions
+46,Palladium,Pd,5,solid,Silvery white.  Transition metal. can absorb hydrogen up to 900 times its volume , used in jewellery
+47,Silver,Ag,5,solid,Lustrous white metal.  Transition metal. best conductor of electricity,used in jewellery electronics and coins
+48,Cadmium,Cd,5,solid,Silvery bluish-gray metallic.  Transition metal.  used in rechargeable batteries, toxic to humans
+49,Indium,In,5,solid,Silvery lustrous gray.  Post-transition metal.  used in touch screen  and LCD due to transparency
+51,Antimony,Sb,5,solid,Silvery lustrous gray.  Metalloid. used in flame retardants and early cosmetics in Egypt ancient times
+52,Tellurium,Te,5,solid,"Silvery lustrous gray (crystalline),, brown-black powder (amorphous).  Metalloid."  smells like garlic, used in solar panels
+53,Iodine,I,5,solid,"Lustrous metallic gray, violet as a gas.  Diatomic nonmetal." essential for thyroid gland, used in antiseptic
+54,Xenon,Xe,5,gas,"Colorless gas, exhibiting a blue glow when placed in a high voltage electric field.  Noble gas." used in ion propulsion engines
+55,Cesium,Cs,6,solid,Pale gold.  Alkali metal. used in atomic clocks, the most accurate time keeping devices
+56,Barium,Ba,6,solid,Silvery gray; with a pale yellow tint.  Alkaline earth metals.  used in medical imaging, patients swallow  barium solution to highlight digestive tract
+57,Lanthanum,La,6,solid,Silvery white.  Lanthanide.soft metal used in  camera lenses and battery electrodes
+58,Cerium,Ce,6,solid,Silvery white.  Lanthanide. used in self cleaning ovens and catalytic converters
+59,Praseodymium,Pr,6,solid,Grayish white.  Lanthanide. used in high intensity lights aircraft engines and gives green colour to glass
+61,Promethium,Pm,6,solid,Metallic.  Lanthanide. doesnt occur naturally on Earth, used for nuclear batteries
+62,Samarium,Sm,6,solid,Silvery white.  Lanthanide. used in magnets  which can withstand high temperatures , ideal for military
+63,Europium,Eu,6,solid,"Silvery white, with a pale yellow tint; but rarely seen without oxide discoloration.  Lanthanide."  glows red in UV light  used in TV
+64,Gadolinium,Gd,6,solid,Silvery white.  Lanthanide. used in MRI contrast agents and nuclear reactors
+65,Terbium,Tb,6,solid,Silvery white.  Lanthanide. gives off green light, used in tv screens
+66,Dysprosium,Dy,6,solid,Silvery white.  Lanthanide. helps make super strong magnets that work at high temperatures
+67,Holmium,Ho,6,solid,Silvery white.  Lanthanide. has highest magnetic strength
+68,Erbium,Er,6,solid,Silvery white.  Lanthanide. used in fiber-optic cables to amplify signals over long distances
+69,Thulium,Tm,6,solid,Silvery gray.  Lanthanide. used in portable x-ray machines
+71,Lutetium,Lu,6,solid,Silvery white.  Lanthanide. used in PET scans and catalysts in oil refining
+72,Hafnium,Hf,6,solid,Steel gray.  Transition metal.  very corrosion resistant, used in nuclear submarines and rocket engines
+73,Tantalum,Ta,6,solid,Gray blue.  Transition metal. used in medical implants, electronics and capacitors
+74,Tungsten,W,6,solid,"Grayish white, lustrous.  Transition metal." has highest melting point of all metals, 3422C used in lightbulbs filaments
+75,Rhenium,Re,6,solid,Silvery-grayish.  Transition metal. used in jet engines and thermocouples
+76,Osmium,Os,6,solid,"Silvery, blue cast.  Transition metal." densest naturally occurring element used in ment tips electrical contacts and surgical tools
+77,Iridium,Ir,6,solid,Silvery white.  Transition metal. used i spark plugs and spacecraft
+78,Platinum,Pt,6,solid,Silvery white.  Transition metal. extremely unreactive , used in jewlerry catalytic converters and chemotherapy drugs
+79,Gold,Au,6,solid,Metallic yellow.  Transition metal. highly valued for beauty  and resistance to tarnish, also used in space gear
+81,Thallium,Tl,6,solid,Silvery white.  Post-transition metal.  highly toxic metal once used in rat poison and hair removal creams, now mostly used in electronics
+82,Lead,Pb,6,solid,Metallic gray.  Post-transition metal. used in pipes and paints for centuries, mostly phased out due to neurotoxicity
+83,Bismuth,Bi,6,solid,Lustrous brownish silver.  Post-transition metal. safest heavy metal used in pepto-bismol crystals form rainbows
+84,Polonium,Po,6,solid,Silvery.  Post-transition metal. extremily radioactive with tiny amount can be lethal
+85,Astatine,At,6,solid,"Unknown, probably metallic.  Metalloid." rare and unstable with less than 1 g available on  Earth
+86,Radon,Rn,6,gas,"Colorless gas, occasionally glows green or red in discharge tubes.  Noble gas." radioactive  gas that naturally seeps from the ground  major cause of lung cancer  after smoking
+87,Francium,Fr,7,solid,.  Alkali metal. rarest naturally occuring element, so radioactive that it will vaporize itself before it is seen
+88,Radium,Ra,7,solid,Silvery white metallic.  Alkaline earth metal.  dangerously radioactive previously used  in glow in the dark watches
+89,Actinium,Ac,7,solid,"Silvery-white, glowing with an eerie blue light; sometimes with a golden cast.  Actinide." glows blue in the dark , used as a neutron source
+91,Protactinium,Pa,7,solid,"Bright, silvery metallic luster.  Actinide." named after Thor
+92,Uranium,U,7,solid,Silvery gray metallic; corrodes to a spalling black oxide coat in air.  Actinide. mostly used in scientific research
+93,Neptunium,Np,7,solid,Silvery metallic.  Actinide. fuel for nuclear power and weapons  found in some types of granite, naturally radioactive
+94,Plutonium,Pu,7,solid,"Silvery white, tarnishing to dark gray in air.  Actinide."  infamous for role in nuclear bombs , used in deep space probes
+95,Americium,Am,7,solid,Silvery white.  Actinide. found in smoke detectors  helps detect fires in homes
+96,Curium,Cm,7,solid,"Silvery metallic, glows purple in the dark.  Actinide."  named after Marie and Pierre Curie, used in space missions as power source
+
